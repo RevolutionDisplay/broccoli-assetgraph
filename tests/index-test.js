@@ -91,7 +91,7 @@ describe('BroccoliAssetGraph', function(hooks) {
     it('processes assets', co.wrap(function* (assert) {
       input.write(fixture);
 
-      const node = new BroccoliAssetGraph([input.path()], {name: 'test-1'});
+      const node = new BroccoliAssetGraph([input.path()], {name: 'test-processing'});
       const output = yield buildOutput(node);
 
       const outFixture = output.read();
@@ -136,11 +136,12 @@ describe('BroccoliAssetGraph', function(hooks) {
       assert.deepEqual(outFixture, expectedFixture);
     }));
 
+
     it('can disable deep processing of assets', co.wrap(function* (assert) {
       input.write(fixture);
 
       const node = new BroccoliAssetGraph([input.path()], {
-        name: 'test-2',
+        name: 'test-disabled',
         enabled: false,
       });
       const output = yield buildOutput(node);
@@ -149,11 +150,12 @@ describe('BroccoliAssetGraph', function(hooks) {
       assert.deepEqual(outFixture, fixture);
     }));
 
-    it('excludes assets', co.wrap(function* (assert) {
+
+    it('can exclude assets', co.wrap(function* (assert) {
       input.write(fixture);
 
       const node = new BroccoliAssetGraph([input.path()], {
-        name: 'test-2',
+        name: 'test-exclude',
         exclude: ['**/*.gif', '**/*.ttf'],
       });
       const output = yield buildOutput(node);
@@ -193,6 +195,58 @@ describe('BroccoliAssetGraph', function(hooks) {
         },
         'images': {
           'a.gif': 'gif data',
+          'header-3c2af4a748ce22f8eb1db184738614c6.jpg': 'jpeg data',
+          'some-e8e7c184735fc6d8cf121392bee5b7cd.png': 'png data'
+        }
+      };
+      assert.deepEqual(outFixture, expectedFixture);
+    }));
+
+
+    it('adds a prefix', co.wrap(function* (assert) {
+      input.write(fixture);
+
+      const node = new BroccoliAssetGraph([input.path()], {
+        name: 'test-prefix',
+        prepend: 'http://www.example.com/something/',
+      });
+      const output = yield buildOutput(node);
+
+      const outFixture = output.read();
+      assertFixtureHashes(assert, outFixture, md5Hash);
+
+      const expectedFixture = {
+        'assets': {
+          'another-b5baaab3cdc8cb902a1f52ff21815a07.css':
+            '.some.css { background-image: url(../images/a-eef42d897235312daa2e5999dc48fc6b.gif); }'
+          ,
+          'vendor-4c9bb3cb867d322a50e39c791d6825fe.css':
+            '@import "another-b5baaab3cdc8cb902a1f52ff21815a07.css";'
+          + '.some.css { background-image: url(../images/some-e8e7c184735fc6d8cf121392bee5b7cd.png); }'
+          + '@font-face {'
+          +   'font-family: MyFont;'
+          +   'src: url(../fonts/font1-726a1d7d854fb98ff2e0635b6ae1ed88.ttf);'
+          +   'src: url(../fonts/font2-8861b27c7001a3144633a6f7e25ad9f4.otf);'
+          + '}'
+          ,
+          'test-bb8a34ac1b2b465caebc4901770566ce.html':
+            '<html>'
+          +   '<head>'
+          +     '<style type="text/css">body {background-image: url(\'http://www.example.com/something/images/header-3c2af4a748ce22f8eb1db184738614c6.jpg\');}</style>'
+          +     '<link rel="stylesheet" href="http://www.example.com/something/assets/vendor-4c9bb3cb867d322a50e39c791d6825fe.css">'
+          +   '</head>'
+          +   '<body>'
+          +     '<img src="http://www.example.com/something/images/some-e8e7c184735fc6d8cf121392bee5b7cd.png">'
+          +   '</body>'
+          + '</html>'
+          ,
+        },
+        'fonts': {
+          'font1-726a1d7d854fb98ff2e0635b6ae1ed88.ttf': 'ttf data',
+          'font2-8861b27c7001a3144633a6f7e25ad9f4.otf': 'otf data'
+        },
+        'images': {
+          'a-eef42d897235312daa2e5999dc48fc6b.gif': 'gif data',
           'header-3c2af4a748ce22f8eb1db184738614c6.jpg': 'jpeg data',
           'some-e8e7c184735fc6d8cf121392bee5b7cd.png': 'png data'
         }
