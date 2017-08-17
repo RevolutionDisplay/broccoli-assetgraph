@@ -150,6 +150,31 @@ describe('BroccoliAssetGraph', function(hooks) {
     }));
 
 
+    it('can define which assets to load & search', co.wrap(function* (assert) {
+      input.write(fixture);
+
+      const node = new BroccoliAssetGraph([input.path()], {
+        name: 'test-loadAssets',
+        loadAssets: ['fonts/**', '**/*.gif']
+      });
+      const output = yield buildOutput(node);
+
+      const outFixture = output.read();
+      assertFixtureHashes(assert, outFixture, md5Hash);
+
+      const expectedFixture = {
+        'fonts': {
+          'font1-726a1d7d854fb98ff2e0635b6ae1ed88.ttf': 'ttf data',
+          'font2-8861b27c7001a3144633a6f7e25ad9f4.otf': 'otf data'
+        },
+        'images': {
+          'a-eef42d897235312daa2e5999dc48fc6b.gif': 'gif data'
+        }
+      };
+      assert.deepEqual(outFixture, expectedFixture);
+    }));
+
+
     it('supports alternative hash functions', co.wrap(function* (assert) {
       input.write(fixture);
 

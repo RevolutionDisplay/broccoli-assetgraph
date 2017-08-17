@@ -14,6 +14,7 @@ module.exports = class BroccoliAssetGraph extends Plugin {
       prepend: null,        // A string to prepend to all of the assets. Useful for CDN urls like https://subdomain.cloudfront.net/
       exclude: null,        // An array of string globs. If a path matches any item in the exclude array, it will not be fingerprinted
       customHash: 'md5Hex', // When specified, this is appended to fingerprinted filenames instead of the md5. Pass null to suppress the hash, which can be useful when using prepend
+      loadAssets: ['**/*.css', '**/*.html', '**/*.js'],  // An array of string globs. Defines initial assets to load then search for dependencies
     };
     const options = Object.assign(defaultOptions, optionsIn);
 
@@ -46,7 +47,7 @@ module.exports = class BroccoliAssetGraph extends Plugin {
       });
 
       let ag = assetGraph
-        .loadAssets(['**/*.css', '**/*.html', '**/*.js'])
+        .loadAssets(this.options.loadAssets)
         .populate()
       ;
 
