@@ -1,0 +1,34 @@
+{
+  "name": "broccoli-assetgraph",
+  "version": "0.1.0",
+  "description": "Broccoli pipeline asset fingerprinting",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "qunit tests/**/*-test.js",
+    "test:lint": "qunit tests/lint-test.js"
+  },
+  "keywords": [
+    "broccoli",
+    "fingerprinting",
+    "plugin"
+  ],
+  "author": "Chris Byrne <cbyrne@revolutiondisplay.com>",
+  "license": "MIT",
+  "repository": {},
+  "homepage": "",
+  "files": [
+    "src/"
+  ],
+  "devDependencies": {
+    "broccoli-test-helper": "^1.1.0",
+    "co": "^4.6.0",
+    "qunit-eslint": "^1.0.0",
+    "qunitjs": "^2.4.0"
+  },
+  "dependencies": {
+    "assetgraph": "^3.6.3",
+    "broccoli-plugin": "^1.2.1",
+    "minimatch": "^3.0.3",
+    "promise": "^8.0.1"
+  }
+}
