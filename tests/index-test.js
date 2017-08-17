@@ -13,9 +13,10 @@ const describe = QUnit.module;
 const it = QUnit.test;
 
 function md5Hash(buf) {
-  const md5 = crypto.createHash('md5');
-  md5.update(buf);
-  return md5.digest('hex');
+  return crypto.createHash('md5').update(buf).digest('hex');
+}
+function sha1Hash(buf) {
+  return crypto.createHash('sha1').update(buf).digest('hex');
 }
 
 // recursively verify asset's fingerprint matches hash
@@ -145,9 +146,71 @@ describe('BroccoliAssetGraph', function(hooks) {
         enabled: false,
       });
       const output = yield buildOutput(node);
+      assert.deepEqual(output.read(), fixture);
+    }));
+
+
+    it('supports alternative hash functions', co.wrap(function* (assert) {
+      input.write(fixture);
+
+      const node = new BroccoliAssetGraph([input.path()], {
+        name: 'test-hash',
+        customHash: sha1Hash
+      });
+      const output = yield buildOutput(node);
 
       const outFixture = output.read();
-      assert.deepEqual(outFixture, fixture);
+      assertFixtureHashes(assert, outFixture, sha1Hash);
+
+      const expectedFixture = {
+        'assets': {
+          'another-920915702d5839004cae0fa9c46fc2427fe4cc74.css':
+            '.some.css { background-image: url(../images/a-162bbb1eb36958691ff64699d249964a6cd01bb5.gif); }'
+          ,
+          'vendor-b5226058653bf61eb8c5e057e3418a84a0b89ee8.css':
+            '@import "another-920915702d5839004cae0fa9c46fc2427fe4cc74.css";'
+          + '.some.css { background-image: url(../images/some-212215994f162bde98c95eeab47a27ba74f55f41.png); }'
+          + '@font-face {'
+          +   'font-family: MyFont;'
+          +   'src: url(../fonts/font1-cd9d6cc3a73503a08bcdfa301f2ec34a602857c0.ttf);'
+          +   'src: url(../fonts/font2-2bf69b3fe3a9c39b29aa32422b780f5610277f80.otf);'
+          + '}'
+          ,
+          'test-ba9de2f46de6e788d6d7a1a9332229b308a30999.html':
+            '<html>'
+          +   '<head>'
+          +     '<style type="text/css">body {background-image: url(../images/header-33bfaafd55213b9c72e383c37a930aadc3733cb5.jpg);}</style>'
+          +     '<link rel="stylesheet" href="/assets/vendor-b5226058653bf61eb8c5e057e3418a84a0b89ee8.css">'
+          +   '</head>'
+          +   '<body>'
+          +     '<img src="../images/some-212215994f162bde98c95eeab47a27ba74f55f41.png">'
+          +   '</body>'
+          + '</html>'
+          ,
+        },
+        'fonts': {
+          'font1-cd9d6cc3a73503a08bcdfa301f2ec34a602857c0.ttf': 'ttf data',
+          'font2-2bf69b3fe3a9c39b29aa32422b780f5610277f80.otf': 'otf data'
+        },
+        'images': {
+          'a-162bbb1eb36958691ff64699d249964a6cd01bb5.gif': 'gif data',
+          'header-33bfaafd55213b9c72e383c37a930aadc3733cb5.jpg': 'jpeg data',
+          'some-212215994f162bde98c95eeab47a27ba74f55f41.png': 'png data'
+        }
+      };
+      assert.deepEqual(outFixture, expectedFixture);
+    }));
+
+
+    it('supports no hash functions', co.wrap(function* (assert) {
+      input.write(fixture);
+
+      const node = new BroccoliAssetGraph([input.path()], {
+        name: 'test-nohash',
+        customHash: null
+      });
+      const output = yield buildOutput(node);
+      assert.deepEqual(output.read(), fixture);
     }));
 
 

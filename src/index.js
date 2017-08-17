@@ -10,14 +10,27 @@ const url = require('url');
 module.exports = class BroccoliAssetGraph extends Plugin {
   constructor(node, optionsIn) {
     const defaultOptions = {
-      enabled: true,  // Enables fingerprinting if true
-      prepend: null,  // A string to prepend to all of the assets. Useful for CDN urls like https://subdomain.cloudfront.net/
-      exclude: null,  // An array of string globs. If a path matches any item in the exclude array, it will not be fingerprinted
+      enabled: true,        // Enables fingerprinting if true
+      prepend: null,        // A string to prepend to all of the assets. Useful for CDN urls like https://subdomain.cloudfront.net/
+      exclude: null,        // An array of string globs. If a path matches any item in the exclude array, it will not be fingerprinted
+      customHash: 'md5Hex', // When specified, this is appended to fingerprinted filenames instead of the md5. Pass null to suppress the hash, which can be useful when using prepend
     };
     const options = Object.assign(defaultOptions, optionsIn);
 
     super(node, options);
     this.options = options;
+
+    //
+    if (false === ('customHash' in optionsIn)) {
+      // default to assetgraph's md5hex
+      this.hashFunc = (asset) => asset.md5Hex;
+    } else if ('function' === typeof options.customHash) {
+      // use a custom hash function
+      this.hashFunc = (asset) => options.customHash(asset.rawSrc);
+    } else {
+      // disable hash function (no fingerprinting)
+      this.hashFunc = null;
+    }
 
     this.exclude = [];
     if (Array.isArray(this.options.exclude)) {
@@ -52,13 +65,9 @@ module.exports = class BroccoliAssetGraph extends Plugin {
         const assetPath = path.relative(inputPath, url.parse(asset.url).pathname);
         const p = path.parse(assetPath);
 
-        if (this.exclude.find((ex) => ex.match(assetPath))) return;
+        if (!this.hashFunc || this.exclude.find((ex) => ex.match(assetPath))) return;
 
-        let out = p.name;
-        out += '-';
-        out += asset.md5Hex;
-        out += p.ext;
-        return out;
+        return p.name + '-' + this.hashFunc(asset) + p.ext;
       });
 
       // write local assets (pre-pended are done next)
