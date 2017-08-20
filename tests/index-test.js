@@ -7,7 +7,7 @@ const co = require('co');
 const crypto = require('crypto');
 const path = require('path');
 
-const BroccoliAssetGraph = require('../src');
+const BroccoliAssetGraph = require('../lib');
 
 const describe = QUnit.module;
 const it = QUnit.test;

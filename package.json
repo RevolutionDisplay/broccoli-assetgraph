@@ -2,7 +2,7 @@
   "name": "broccoli-assetgraph",
   "version": "0.1.0",
   "description": "Broccoli pipeline asset fingerprinting",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "qunit tests/**/*-test.js",
     "test:lint": "qunit tests/lint-test.js"
@@ -17,7 +17,7 @@
   "repository": {},
   "homepage": "",
   "files": [
-    "src/"
+    "lib/"
   ],
   "devDependencies": {
     "broccoli-test-helper": "^1.1.0",
