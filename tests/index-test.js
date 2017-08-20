@@ -59,10 +59,18 @@ describe('BroccoliAssetGraph', function(hooks) {
         +   'src: url(../fonts/font2.otf);'
         + '}'
         ,
+        'main.js':
+          'const translations = {'
+          +   'en: "translations/en.json",'
+          +   'zz: "translations/missing.json"'
+        + '};'
+        + 'console.log("Hello World");'
+        ,
         'test.html':
           '<html>'
         +   '<head>'
         +     '<style type="text/css">body {background-image: url(../images/header.jpg);}</style>'
+        +     '<script src="main.js"></script>'
         +     '<link rel="stylesheet" href="/assets/vendor.css">'
         +   '</head>'
         +   '<body>'
@@ -70,6 +78,9 @@ describe('BroccoliAssetGraph', function(hooks) {
         +   '</body>'
         + '</html>'
         ,
+        'translations': {
+          'en.json': '{ "bacon": "bacon" }'
+        }
       },
       'fonts': {
         'font1.ttf': 'ttf data',
@@ -112,10 +123,18 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   'src: url(../fonts/font2-8861b27c7001a3144633a6f7e25ad9f4.otf);'
           + '}'
           ,
-          'test-108fde8ab079cbfff1394026948e3eda.html':
+          'main-b9813439b227370ec6e9cab45a7c036b.js':
+            'const translations = {'
+          +   'en: "translations/en.json",'
+          +   'zz: "translations/missing.json"'
+          + '};'
+          + 'console.log("Hello World");'
+          ,
+          'test-ff43f583215ae7d2e6193504a68419cc.html':
             '<html>'
           +   '<head>'
           +     '<style type="text/css">body {background-image: url(../images/header-3c2af4a748ce22f8eb1db184738614c6.jpg);}</style>'
+          +     '<script src="main-b9813439b227370ec6e9cab45a7c036b.js"></script>'
           +     '<link rel="stylesheet" href="/assets/vendor-4c9bb3cb867d322a50e39c791d6825fe.css">'
           +   '</head>'
           +   '<body>'
@@ -123,6 +142,9 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   '</body>'
           + '</html>'
           ,
+          'translations': {
+            'en-5920c9edcccd1283fed797dc9e415e4a.json': '{ "bacon": "bacon" }'
+          }
         },
         'fonts': {
           'font1-726a1d7d854fb98ff2e0635b6ae1ed88.ttf': 'ttf data',
@@ -201,10 +223,18 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   'src: url(../fonts/font2-2bf69b3fe3a9c39b29aa32422b780f5610277f80.otf);'
           + '}'
           ,
-          'test-ba9de2f46de6e788d6d7a1a9332229b308a30999.html':
+          'main-668e167aa094d32b01bbda033af7a0d36a25347e.js':
+            'const translations = {'
+          +   'en: "translations/en.json",'
+          +   'zz: "translations/missing.json"'
+          + '};'
+          + 'console.log("Hello World");'
+          ,
+          'test-43d1ef8475dd3fb71f1a401324d8d8281df365c1.html':
             '<html>'
           +   '<head>'
           +     '<style type="text/css">body {background-image: url(../images/header-33bfaafd55213b9c72e383c37a930aadc3733cb5.jpg);}</style>'
+          +     '<script src="main-668e167aa094d32b01bbda033af7a0d36a25347e.js"></script>'
           +     '<link rel="stylesheet" href="/assets/vendor-b5226058653bf61eb8c5e057e3418a84a0b89ee8.css">'
           +   '</head>'
           +   '<body>'
@@ -212,6 +242,9 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   '</body>'
           + '</html>'
           ,
+          'translations': {
+            'en-28a1cda252378b30885ecf2e6b5420ec41c853d5.json': '{ "bacon": "bacon" }'
+          }
         },
         'fonts': {
           'font1-cd9d6cc3a73503a08bcdfa301f2ec34a602857c0.ttf': 'ttf data',
@@ -265,10 +298,18 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   'src: url(../fonts/font2-8861b27c7001a3144633a6f7e25ad9f4.otf);'
           + '}'
           ,
-          'test-9c4f988d6996314fff029ddc09422e50.html':
+          'main-b9813439b227370ec6e9cab45a7c036b.js':
+            'const translations = {'
+          +   'en: "translations/en.json",'
+          +   'zz: "translations/missing.json"'
+          + '};'
+          + 'console.log("Hello World");'
+          ,
+          'test-51e043bd48cc76374d99a22526cb7ad6.html':
             '<html>'
           +   '<head>'
           +     '<style type="text/css">body {background-image: url(../images/header-3c2af4a748ce22f8eb1db184738614c6.jpg);}</style>'
+          +     '<script src="main-b9813439b227370ec6e9cab45a7c036b.js"></script>'
           +     '<link rel="stylesheet" href="/assets/vendor-13bb5de4cd2e216442fdd4ec95e5a7fc.css">'
           +   '</head>'
           +   '<body>'
@@ -276,6 +317,9 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   '</body>'
           + '</html>'
           ,
+          'translations': {
+            'en-5920c9edcccd1283fed797dc9e415e4a.json': '{ "bacon": "bacon" }'
+          }
         },
         'fonts': {
           'font1.ttf': 'ttf data',
@@ -317,10 +361,18 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   'src: url(../fonts/font2-8861b27c7001a3144633a6f7e25ad9f4.otf);'
           + '}'
           ,
-          'test-bb8a34ac1b2b465caebc4901770566ce.html':
+          'main-b9813439b227370ec6e9cab45a7c036b.js':
+            'const translations = {'
+          +   'en: "translations/en.json",'
+          +   'zz: "translations/missing.json"'
+          + '};'
+          + 'console.log("Hello World");'
+          ,
+          'test-4d8085dcf36ccf41494ce9bc3d575ee2.html':
             '<html>'
           +   '<head>'
           +     '<style type="text/css">body {background-image: url(\'http://www.example.com/something/images/header-3c2af4a748ce22f8eb1db184738614c6.jpg\');}</style>'
+          +     '<script src="http://www.example.com/something/assets/main-b9813439b227370ec6e9cab45a7c036b.js"></script>'
           +     '<link rel="stylesheet" href="http://www.example.com/something/assets/vendor-4c9bb3cb867d322a50e39c791d6825fe.css">'
           +   '</head>'
           +   '<body>'
@@ -328,6 +380,9 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   '</body>'
           + '</html>'
           ,
+          'translations': {
+            'en-5920c9edcccd1283fed797dc9e415e4a.json': '{ "bacon": "bacon" }'
+          }
         },
         'fonts': {
           'font1-726a1d7d854fb98ff2e0635b6ae1ed88.ttf': 'ttf data',
