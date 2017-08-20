@@ -8,6 +8,7 @@
     "test:lint": "qunit tests/lint-test.js"
   },
   "keywords": [
+    "ember-addon",
     "broccoli",
     "fingerprinting",
     "plugin"
@@ -19,6 +20,9 @@
   "files": [
     "lib/"
   ],
+  "ember-addon": {
+    "main": "lib/ember-cli.js"
+  },
   "devDependencies": {
     "broccoli-test-helper": "^1.1.0",
     "co": "^4.6.0",
