@@ -64,6 +64,9 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   'en: "translations/en.json",'
           +   'zz: "translations/missing.json"'
         + '};'
+        + 'define("test/templates/application", ["exports"], function (exports) {'
+        + '  exports["default"] = Ember.HTMLBars.template({ "id": "id", "block": "{\"statements\":[[\"open-element\",\"img\",[]],[\"dynamic-attr\",\"src\",[\"concat\",[[\"unknown\",[\"rootURL\"]],\"images/logo.svg\"]]],[\"static-attr\",\"height\",\"20px\"],[\"flush-element\"],[\"close-element\"]]}" });'
+        + '});'
         + 'console.log("Hello World");'
         ,
         'test.html':
@@ -89,6 +92,7 @@ describe('BroccoliAssetGraph', function(hooks) {
       'images': {
         'a.gif': 'gif data',
         'header.jpg': 'jpeg data',
+        'logo.svg': 'svg data',
         'some.png': 'png data'
       }
     };
@@ -123,18 +127,21 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   'src: url(../fonts/font2-8861b27c7001a3144633a6f7e25ad9f4.otf);'
           + '}'
           ,
-          'main-b9813439b227370ec6e9cab45a7c036b.js':
+          'main-367e4c4dd57b31166213a286163eb74e.js':
             'const translations = {'
           +   'en: "translations/en.json",'
           +   'zz: "translations/missing.json"'
           + '};'
+          + 'define("test/templates/application", ["exports"], function (exports) {'
+          + '  exports["default"] = Ember.HTMLBars.template({ "id": "id", "block": "{\"statements\":[[\"open-element\",\"img\",[]],[\"dynamic-attr\",\"src\",[\"concat\",[[\"unknown\",[\"rootURL\"]],\"images/logo.svg\"]]],[\"static-attr\",\"height\",\"20px\"],[\"flush-element\"],[\"close-element\"]]}" });'
+          + '});'
           + 'console.log("Hello World");'
           ,
-          'test-ff43f583215ae7d2e6193504a68419cc.html':
+          'test-489bc512b5ccf7f937566848d6a60168.html':
             '<html>'
           +   '<head>'
           +     '<style type="text/css">body {background-image: url(../images/header-3c2af4a748ce22f8eb1db184738614c6.jpg);}</style>'
-          +     '<script src="main-b9813439b227370ec6e9cab45a7c036b.js"></script>'
+          +     '<script src="main-367e4c4dd57b31166213a286163eb74e.js"></script>'
           +     '<link rel="stylesheet" href="/assets/vendor-4c9bb3cb867d322a50e39c791d6825fe.css">'
           +   '</head>'
           +   '<body>'
@@ -153,6 +160,7 @@ describe('BroccoliAssetGraph', function(hooks) {
         'images': {
           'a-eef42d897235312daa2e5999dc48fc6b.gif': 'gif data',
           'header-3c2af4a748ce22f8eb1db184738614c6.jpg': 'jpeg data',
+          'logo-d317ec7c599382ef3e417d6a1a455e0b.svg': 'svg data',
           'some-e8e7c184735fc6d8cf121392bee5b7cd.png': 'png data'
         }
       };
@@ -223,18 +231,21 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   'src: url(../fonts/font2-2bf69b3fe3a9c39b29aa32422b780f5610277f80.otf);'
           + '}'
           ,
-          'main-668e167aa094d32b01bbda033af7a0d36a25347e.js':
+          'main-b5cb087d79e043042d8340fd1ce28a22c0f95963.js':
             'const translations = {'
           +   'en: "translations/en.json",'
           +   'zz: "translations/missing.json"'
           + '};'
+          + 'define("test/templates/application", ["exports"], function (exports) {'
+          + '  exports["default"] = Ember.HTMLBars.template({ "id": "id", "block": "{\"statements\":[[\"open-element\",\"img\",[]],[\"dynamic-attr\",\"src\",[\"concat\",[[\"unknown\",[\"rootURL\"]],\"images/logo.svg\"]]],[\"static-attr\",\"height\",\"20px\"],[\"flush-element\"],[\"close-element\"]]}" });'
+          + '});'
           + 'console.log("Hello World");'
           ,
-          'test-43d1ef8475dd3fb71f1a401324d8d8281df365c1.html':
+          'test-6eb5fb0134a6c0f28132fc0a896c79a728565123.html':
             '<html>'
           +   '<head>'
           +     '<style type="text/css">body {background-image: url(../images/header-33bfaafd55213b9c72e383c37a930aadc3733cb5.jpg);}</style>'
-          +     '<script src="main-668e167aa094d32b01bbda033af7a0d36a25347e.js"></script>'
+          +     '<script src="main-b5cb087d79e043042d8340fd1ce28a22c0f95963.js"></script>'
           +     '<link rel="stylesheet" href="/assets/vendor-b5226058653bf61eb8c5e057e3418a84a0b89ee8.css">'
           +   '</head>'
           +   '<body>'
@@ -253,6 +264,7 @@ describe('BroccoliAssetGraph', function(hooks) {
         'images': {
           'a-162bbb1eb36958691ff64699d249964a6cd01bb5.gif': 'gif data',
           'header-33bfaafd55213b9c72e383c37a930aadc3733cb5.jpg': 'jpeg data',
+          'logo-eed733f265a6f41c7372902accd0abeff83aa906.svg': 'svg data',
           'some-212215994f162bde98c95eeab47a27ba74f55f41.png': 'png data'
         }
       };
@@ -298,18 +310,21 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   'src: url(../fonts/font2-8861b27c7001a3144633a6f7e25ad9f4.otf);'
           + '}'
           ,
-          'main-b9813439b227370ec6e9cab45a7c036b.js':
+          'main-367e4c4dd57b31166213a286163eb74e.js':
             'const translations = {'
           +   'en: "translations/en.json",'
           +   'zz: "translations/missing.json"'
           + '};'
+          + 'define("test/templates/application", ["exports"], function (exports) {'
+          + '  exports["default"] = Ember.HTMLBars.template({ "id": "id", "block": "{\"statements\":[[\"open-element\",\"img\",[]],[\"dynamic-attr\",\"src\",[\"concat\",[[\"unknown\",[\"rootURL\"]],\"images/logo.svg\"]]],[\"static-attr\",\"height\",\"20px\"],[\"flush-element\"],[\"close-element\"]]}" });'
+          + '});'
           + 'console.log("Hello World");'
           ,
-          'test-51e043bd48cc76374d99a22526cb7ad6.html':
+          'test-24b396d1620696921fa6822bdf571d99.html':
             '<html>'
           +   '<head>'
           +     '<style type="text/css">body {background-image: url(../images/header-3c2af4a748ce22f8eb1db184738614c6.jpg);}</style>'
-          +     '<script src="main-b9813439b227370ec6e9cab45a7c036b.js"></script>'
+          +     '<script src="main-367e4c4dd57b31166213a286163eb74e.js"></script>'
           +     '<link rel="stylesheet" href="/assets/vendor-13bb5de4cd2e216442fdd4ec95e5a7fc.css">'
           +   '</head>'
           +   '<body>'
@@ -328,6 +343,7 @@ describe('BroccoliAssetGraph', function(hooks) {
         'images': {
           'a.gif': 'gif data',
           'header-3c2af4a748ce22f8eb1db184738614c6.jpg': 'jpeg data',
+          'logo-d317ec7c599382ef3e417d6a1a455e0b.svg': 'svg data',
           'some-e8e7c184735fc6d8cf121392bee5b7cd.png': 'png data'
         }
       };
@@ -361,18 +377,21 @@ describe('BroccoliAssetGraph', function(hooks) {
           +   'src: url(../fonts/font2-8861b27c7001a3144633a6f7e25ad9f4.otf);'
           + '}'
           ,
-          'main-b9813439b227370ec6e9cab45a7c036b.js':
+          'main-367e4c4dd57b31166213a286163eb74e.js':
             'const translations = {'
           +   'en: "translations/en.json",'
           +   'zz: "translations/missing.json"'
           + '};'
+          + 'define("test/templates/application", ["exports"], function (exports) {'
+          + '  exports["default"] = Ember.HTMLBars.template({ "id": "id", "block": "{\"statements\":[[\"open-element\",\"img\",[]],[\"dynamic-attr\",\"src\",[\"concat\",[[\"unknown\",[\"rootURL\"]],\"images/logo.svg\"]]],[\"static-attr\",\"height\",\"20px\"],[\"flush-element\"],[\"close-element\"]]}" });'
+          + '});'
           + 'console.log("Hello World");'
           ,
-          'test-4d8085dcf36ccf41494ce9bc3d575ee2.html':
+          'test-9ca0d5053c3d10ad2082a98fbb32e684.html':
             '<html>'
           +   '<head>'
           +     '<style type="text/css">body {background-image: url(\'http://www.example.com/something/images/header-3c2af4a748ce22f8eb1db184738614c6.jpg\');}</style>'
-          +     '<script src="http://www.example.com/something/assets/main-b9813439b227370ec6e9cab45a7c036b.js"></script>'
+          +     '<script src="http://www.example.com/something/assets/main-367e4c4dd57b31166213a286163eb74e.js"></script>'
           +     '<link rel="stylesheet" href="http://www.example.com/something/assets/vendor-4c9bb3cb867d322a50e39c791d6825fe.css">'
           +   '</head>'
           +   '<body>'
@@ -391,6 +410,7 @@ describe('BroccoliAssetGraph', function(hooks) {
         'images': {
           'a-eef42d897235312daa2e5999dc48fc6b.gif': 'gif data',
           'header-3c2af4a748ce22f8eb1db184738614c6.jpg': 'jpeg data',
+          'logo-d317ec7c599382ef3e417d6a1a455e0b.svg': 'svg data',
           'some-e8e7c184735fc6d8cf121392bee5b7cd.png': 'png data'
         }
       };
